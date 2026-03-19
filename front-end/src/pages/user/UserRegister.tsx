@@ -6,7 +6,6 @@ import { createUser } from "../../features/userSlice";
 import { type AppDispatch } from "../../../store";
 import { useDispatch } from "react-redux";
 import styles from "./UserRegister.module.css";
-import { FaGoogle, FaFacebook } from "react-icons/fa";
 
 const UserRegister: React.FC = () => {
   const [firstName, setFirstName] = useState("");
@@ -158,27 +157,9 @@ const UserRegister: React.FC = () => {
             variant="primary"
             width={100}
             onClick={handleRegister}
-            disabled={!isFormValid}
           >
             Register
           </Button>
-          <p style={{ textAlign: "center", margin: "1rem 0" }}>OR</p>
-          <div className={styles.oauthIcons}>
-            <a
-              href="#"
-              onClick={() => alert("Google Login Button/Icon (not functional)")}
-            >
-              <FaGoogle size={30} />
-            </a>
-            <a
-              href="#"
-              onClick={() =>
-                alert("Facebook Login Button/Icon (not functional)")
-              }
-            >
-              <FaFacebook size={30} />
-            </a>
-          </div>
         </div>
       </div>
     </>
