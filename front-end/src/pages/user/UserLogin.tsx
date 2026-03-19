@@ -7,7 +7,6 @@ import type { AppDispatch, RootState } from "../../../store";
 import { loginUser } from "../../features/userSlice";
 import { setLocalUser } from "../../utils/LocalStorage";
 import styles from "./UserLogin.module.css";
-import { FaGoogle, FaFacebook } from "react-icons/fa"; // Import icons..react
 
 const UserLogin: React.FC = () => {
   // states
@@ -107,28 +106,10 @@ const UserLogin: React.FC = () => {
             Don't have an account? <Link to={"/register"}>Sign Up</Link>
           </p>
 
-          <Button variant="primary" width={100} onClick={handleLogin} disabled={!isFormValid}>
+          <Button variant="primary" width={100} onClick={handleLogin}>
             Login
           </Button>
 
-          <p style={{ textAlign: "center", margin: "1rem 0" }}>OR</p>
-
-          <div className={styles.oauthIcons}>
-            <a
-              href="#"
-              onClick={() => alert("Google Login Button/Icon (not functional)")}
-            >
-              <FaGoogle size={30} />
-            </a>
-            <a
-              href="#"
-              onClick={() =>
-                alert("Facebook Login Button/Icon (not functional)")
-              }
-            >
-              <FaFacebook size={30} />
-            </a>
-          </div>
         </div>
       </div>
     </>

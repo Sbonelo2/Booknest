@@ -8,8 +8,8 @@
 .loginContainer {
   width: 400px;
   padding: 2rem;
-  border: 1px solid #ccc;
-  border-radius: 8px;
+  border: 2px solid gray;
+  border-radius: 1.5rem;
   background-color: #fff;
 }
 
