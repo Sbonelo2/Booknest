@@ -1,168 +1,336 @@
 import React, { useState, useEffect } from "react";
+
 import InputField from "../../components/InputField/InputField";
+
 import Button from "../../components/Button/Button";
+
 import { Link, useNavigate } from "react-router-dom";
+
 import { createUser } from "../../features/userSlice";
+
 import { type AppDispatch } from "../../../store";
+
 import { useDispatch } from "react-redux";
+
 import styles from "./UserRegister.module.css";
 
+
+
 const UserRegister: React.FC = () => {
+
   const [firstName, setFirstName] = useState("");
+
   const [lastName, setLastName] = useState("");
+
   const [emailAddress, setEmailAddress] = useState("");
 
+
+
   // state for email
+
   const [password, setPassword] = useState(""); // state for password
+
   const [confirmPassword, setConfirmPassword] = useState(""); // state for confirm password
+
   const [phoneNumber, setPhoneNumber] = useState(""); // state for phone number
+
   const [physicalAddress, setPhysicalAddress] = useState(""); // state for physical address
+
   const [user, setUser] = useState({
+
     firstName: "",
+
     lastName: "",
+
     emailAddress: "",
+
     password: "",
+
     confirmPassword: "",
+
     phoneNumber: "",
+
     physicalAddress: "",
+
   });
+
   const [isFormValid, setIsFormValid] = useState(false);
+
   const dispatch = useDispatch<AppDispatch>();
+
   // const { user } = useSelector((state: RootState) => state.user);
+
   const navigate = useNavigate();
+
   console.log(user);
 
+
+
   useEffect(() => {
+
     validateForm();
+
   }, [
+
     firstName,
+
     lastName,
+
     emailAddress,
+
     password,
+
     confirmPassword,
+
     phoneNumber,
+
     physicalAddress,
+
   ]);
 
+
+
   const validateForm = () => {
+
     const newUser = {
+
       firstName: "",
+
       lastName: "",
+
       emailAddress: "",
+
       password: "",
+
       confirmPassword: "",
+
       phoneNumber: "",
+
       physicalAddress: "",
+
     };
 
+
+
     if (!firstName) newUser.firstName = "First name is required";
+
     if (!lastName) newUser.lastName = "Last name is required";
+
     if (!emailAddress) newUser.emailAddress = "Email address is required";
+
     if (!password) newUser.password = "Password is required";
+
     if (password !== confirmPassword)
+
       newUser.confirmPassword = "Passwords do not match";
+
     if (!phoneNumber) {
+
       newUser.phoneNumber = "Phone number is required";
+
     } else if (!/^0[0-9]{9}$/.test(phoneNumber)) {
+
       newUser.phoneNumber =
+
         "Phone number must be a 10-digit South African number starting with a 0";
+
     }
+
     if (!physicalAddress)
+
       newUser.physicalAddress = "Physical address is required";
 
+
+
     setUser(newUser);
+
     setIsFormValid(Object.values(newUser).every((error) => error === ""));
+
   };
+
+
 
   const handleRegister = () => {
+
     console.log("registering user...");
+
     dispatch(
+
       createUser({
+
         firstname: firstName,
+
         lastname: lastName,
+
         emailaddress: emailAddress,
+
         password: password,
+
         phonenumber: phoneNumber,
+
         physicaladdress: physicalAddress,
+
       }),
+
     );
 
+
+
     navigate("/login");
+
   };
 
+
+
   return (
+
     <>
+
       <div className="loginPage">
+
         <div className="loginContainer">
+
           <h2 style={{ textAlign: "center", marginBottom: "1rem" }}>
+
             Register
+
           </h2>
+
           <InputField
+
             placeholder="First Name *"
+
             type="text"
+
             field={firstName} // current value
+
             setField={setFirstName} // setter function
+
           />
+
           <InputField
+
             placeholder="Last name *"
+
             type="text"
+
             field={lastName} // current value
+
             setField={setLastName} // setter function
+
           />
+
           <InputField
+
             placeholder="Email address *"
+
             type="text"
+
             field={emailAddress} // current value
+
             setField={setEmailAddress} // setter function
+
           />
+
           <InputField
+
             placeholder="Password *"
+
             type="password"
+
             field={password} // current value
+
             setField={setPassword} // setter function
+
           />
+
           <InputField
+
             placeholder="Confirm password *"
+
             type="password"
+
             field={confirmPassword} // current value
+
             setField={setConfirmPassword} // setter function
+
           />
+
           <InputField
+
             placeholder="Phone number *"
+
             type="number"
+
             field={phoneNumber} // current value
+
             setField={setPhoneNumber} // setter function
+
           />
+
           <InputField
+
             placeholder="Physical address *"
+
             type="text"
+
             field={physicalAddress} // current value
+
             setField={setPhysicalAddress} // setter function
+
           />
+
           <p style={{ marginTop: "0.4rem", fontSize: "0.95rem" }}>
+
             Already have an account?{" "}
+
             <Link
+
               to="/login"
+
               style={{
+
                 fontWeight: "600",
+
                 color: "#000",
+
                 textDecoration: "underline",
+
               }}
+
             >
+
               Sign In
+
             </Link>
+
           </p>
+
           <br />
+
           <Button
+
             variant="primary"
+
             width={100}
+
             onClick={handleRegister}
+
           >
+
             Register
+
           </Button>
+
         </div>
+
       </div>
+
     </>
+
   );
+
 };
+
 export default UserRegister;
+
